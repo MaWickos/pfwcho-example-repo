@@ -1,20 +1,15 @@
-# Base image
-FROM node:alpine
+# Programowanie fullstack w chmurze obliczeniowej
+## Lab03 (27.10.2022)
+Instrukcja budowania obrazu na podstawie pliku dockerfile z niniejszego repozytorium
+```
+docker build --no-cache --ssh default=C:\Users\macie\.ssh\id_ed25519 -t lab2.v1 -f PFwChO_Lab03_dockerfile . 
+```
 
-# Change directory to get repo and install npm
-WORKDIR /usr/app
+Ogólne polecenie do budowania obrazu
+```
+docker build --no-cache --ssh default=ssh_key -t image_name.version -f dockerfile_name
+```
 
-# Install shh client
-RUN apk add --no-cache openssh-client git
-
-# Download public key
-RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-# Clone example repo from my github
-RUN --mount=type=ssh git clone git@github.com:MaWickos/pfwcho-example-repo.git .
-
-# Install some depenendencies
-RUN npm install
-
-# Default command
-# CMD ["npm", "start"]
+## Autor
+Maciej Wicha, IMST I2S 1.5
+Politechnika Lubelska, rok akademicki 2022/2023
