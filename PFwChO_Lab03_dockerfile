@@ -1,0 +1,20 @@
+# Base image
+FROM node:alpine
+
+# Change directory to get repo and install npm
+WORKDIR /usr/app
+
+# Install shh client
+RUN apk add --no-cache openssh-client git
+
+# Download public key
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# Clone example repo from my github
+RUN --mount=type=ssh git clone git@github.com:MaWickos/pfwcho-example-repo.git .
+
+# Install some depenendencies
+RUN npm install
+
+# Default command
+# CMD ["npm", "start"]
